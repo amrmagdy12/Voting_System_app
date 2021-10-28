@@ -1,7 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 
 class VoterManager(BaseUserManager) :
-    def _create_user (self , personal_id , password , region, **extra_fields) :
+    def create_user (self , personal_id , password , region, **extra_fields) :
          if not personal_id:
                 raise ValueError('The personal_id must be given')
 
@@ -10,6 +10,8 @@ class VoterManager(BaseUserManager) :
          user.save()
          return user
     def create_superuser(self ,personal_id , password , region, **extra_fields ) :
+        #admin user 
+
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -18,4 +20,4 @@ class VoterManager(BaseUserManager) :
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        return self._create_user(personal_id, password, region ,**extra_fields)     
+        return self.create_user(personal_id, password, region ,**extra_fields)     

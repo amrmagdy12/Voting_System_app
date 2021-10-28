@@ -1,4 +1,7 @@
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin , User
 from django.db.models.deletion import CASCADE
 from django.db.models.enums import TextChoices
@@ -38,6 +41,10 @@ class Voter(AbstractBaseUser , PermissionsMixin) :
      objects = VoterManager()   
 
 #-------------------------------------------------
+class Election(models.Model): 
+    election_name = models.CharField(max_length=40 ,unique = True , blank  = False)
+    region = models.ForeignKey(Region ,on_delete= models.CASCADE)
+
 class Candidate(models.Model) :
 
     class Symbols(models.TextChoices):
@@ -51,11 +58,8 @@ class Candidate(models.Model) :
     description = models.CharField(max_length = 200 , default=" I'am a proffesional and trustful , Hope i suites u")
     symbol = models.CharField(max_length=15 ,choices= Symbols.choices ,blank= False, unique = True)   
     mobile = models.CharField(max_length=12 , serialize= False , blank= True ,unique= True)
+    election = models.ForeignKey(Election ,on_delete=CASCADE)
 
-
-class Election(models.Model): 
-    election_name = models.CharField(max_length=40 ,unique = True , blank  = False)
-    region = models.ForeignKey(Region ,on_delete= models.CASCADE)
 
 
 class Voting_on (models.Model) :
