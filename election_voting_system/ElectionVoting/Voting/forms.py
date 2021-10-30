@@ -15,7 +15,6 @@ class VoterCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(VoterCreationForm, self).save(commit=False)
         votekey = self.cleaned_data['votekey']
-        print(votekey)
         user.set_password(votekey)
         if commit:
             user.save()
