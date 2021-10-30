@@ -5,7 +5,7 @@ from .models import *
 class VoterSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Voter 
-        fields = ['__all__']
+        fields = ['personal_id' , 'votekey' , 'region']
 
 
 class CandidateSerializer(serializers.ModelSerializer) :

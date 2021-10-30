@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.urls.conf import include
+from rest_framework.authtoken.views import obtain_auth_token
+# from Voting.views import CustomAuthToken 
+from Voting.views import add_list_Voter
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/' , include('rest_framework.urls')) , 
+    # path('' , obtain_auth_token),
+    path('addvoter' , add_list_Voter.as_view()) ,
+    path("api-token" , obtain_auth_token)
 ]

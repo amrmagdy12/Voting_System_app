@@ -31,12 +31,12 @@ class Voter(AbstractBaseUser , PermissionsMixin) :
      last_name = models.CharField(max_length=20,verbose_name="Last Name")
      personal_id = models.CharField(max_length=14 , verbose_name="P.id" ,unique = True)
      region = models.ForeignKey(Region , on_delete=models.CASCADE)   
-     password = models.CharField(max_length=5 , verbose_name= "vote key" ,unique=True) 
+     votekey = models.CharField(max_length=5 , default= "null",verbose_name= "vote key" ,unique=True) 
      is_staff = models.BooleanField(default=False)
      is_active = models.BooleanField(default=True)
      is_superuser = models.BooleanField(default=False) 
      USERNAME_FIELD = 'personal_id'
-     REQUIRED_FIELDS = ['password' , 'region']   
+     REQUIRED_FIELDS = ['votekey' , 'region']   
                                 
      objects = VoterManager()   
 
