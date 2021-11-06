@@ -21,7 +21,7 @@ class VoterCreationForm(forms.ModelForm):
         return user
 
 class VoterChangeForm(UserChangeForm):
-
+# to be changed 
     class Meta:
         model = Voter
         fields = ('personal_id','votekey' , 'region' )

@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
+
+# Create your models here.
+from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin , User
 from django.db.models.deletion import CASCADE
 from django.db.models.enums import TextChoices
@@ -29,7 +32,7 @@ class Region(models.Model):
 class Voter(AbstractBaseUser , PermissionsMixin) :
      first_name = models.CharField(max_length=20,verbose_name="First Name" , blank=False)
      last_name = models.CharField(max_length=20,verbose_name="Last Name")
-     personal_id = models.CharField(max_length=14 , verbose_name="P.id" ,unique = True)
+     personal_id = models.CharField(max_length=14 , primary_key= True,verbose_name="P.id" ,unique = True)
      region = models.ForeignKey(Region , on_delete=models.CASCADE)   
      votekey = models.CharField(max_length=5 , default= "null",verbose_name= "vote key" ,unique=True) 
      is_staff = models.BooleanField(default=False)
