@@ -44,9 +44,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "Voting.Voter"
 
-# REST_AUTH_SERIALIZERS = {
-#     'USER_DETAILS_SERIALIZER' : 'Voting.serializers.VoterSerializer'
-# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework.authentication.TokenAuthentication'] ,

@@ -16,13 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from rest_framework.authtoken.views import obtain_auth_token
-# from Voting.views import CustomAuthToken 
-from Voting.views import add_list_Voter
+from rest_framework.authtoken.views import obtain_auth_token 
+from Voting.views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'candidates' , list_Candidates, basename='candidate')
+router.register(r'elections' , list_Election, basename='election')
+router.register(r'allvotes' , handle_voting_on ,basename="votes_on")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/' , include('rest_framework.urls')) , 
-    # path('' , obtain_auth_token),
-    path('addvoter' , add_list_Voter.as_view()) ,
-    path("api-token" , obtain_auth_token)
+    path('logout/' , logout_vw) ,
+    path("login" , obtain_auth_token) ,
+    path("vote/" , vote_on) ,
+    path("changevote/" , change_vote) ,
+    path("" ,include(router.urls)) ,    
 ]
+
