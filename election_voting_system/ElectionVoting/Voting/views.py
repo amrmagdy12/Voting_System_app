@@ -87,15 +87,14 @@ def change_vote(request , cand_id , elec_id):
             try :
                if(request.user.personal_id == request.data['voter']):
                    query =  Voting_on.objects.get(voter = request.user.personal_id , candidate = request.data['candidate'] , election = request.data['election'])
+                   serializer = VotingonSerializer(query , data = request.data)
+                   if serializer.is_valid() :
+                        serializer.save()
+                        return Response(serializer.data,status=status.HTTP_201_CREATED)
+                   else :
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
                else :
                    return Response({"[Change_vote] Input error" : "Conflict user can't vote"})
             except Voting_on.DoesNotExist :
-                serializer = VotingonSerializer(query , data = request.data)
-                if serializer.is_valid() :
-                        serializer.save()
-                        return Response(serializer.data,status=status.HTTP_201_CREATED)
-                else :
-                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)     
-           else :
-                 return Response({"error" : "this user already voted"} , status=status.HTTP_403_FORBIDDEN)
+                 return Response({"error" : "No vote appears for this user"} , status=status.HTTP_403_FORBIDDEN)
                 
